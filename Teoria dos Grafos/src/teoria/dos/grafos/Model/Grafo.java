@@ -26,9 +26,20 @@ public class Grafo {
         vertices.add(vertice);
         return vertice;
     }
-    
+
     public void adicionaVertice(Vertice vertice) {
         vertices.add(vertice);
+    }
+
+    public void removeVertice(Vertice vertice) {
+        if (vertices.contains(vertice)) {
+            for (int i = 0; i < this.vertices.size(); i++) {
+                if(vertice.getNome().equals(this.arestas.get(i).getNomeOrigem()) || vertice.getNome().equals(this.arestas.get(i).getNomeDestino()) ){
+                    removeAresta(arestas.get(i));
+                }
+            }
+            this.vertices.remove(vertice);
+        }
     }
 
     public void setVertices(ArrayList<Vertice> vertices) {
@@ -41,9 +52,20 @@ public class Grafo {
         arestas.add(aresta);
         return aresta;
     }
-    
+
     public void adicionaAresta(Aresta aresta) {
         arestas.add(aresta);
+    }
+
+    public void removeAresta(Aresta aresta) {
+        if (this.arestas.contains(aresta)) {
+            this.arestas.remove(aresta);
+            for (int i = 0; i > this.vertices.size(); i++) {
+                if (this.vertices.get(i).getLigacoes().contains(aresta)) {
+                    this.vertices.get(i).getLigacoes().remove(aresta);
+                }
+            }
+        }
     }
 
     public void setArestas(ArrayList<Aresta> arestas) {
