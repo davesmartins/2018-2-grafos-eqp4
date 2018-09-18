@@ -15,6 +15,7 @@ public class Grafo {
 
     ArrayList<Vertice> vertices;
     ArrayList<Aresta> arestas;
+    private boolean conexo;
 
     public Grafo() {
         this.vertices = new ArrayList<Vertice>();
@@ -34,7 +35,7 @@ public class Grafo {
     public void removeVertice(Vertice vertice) {
         if (vertices.contains(vertice)) {
             for (int i = 0; i < this.vertices.size(); i++) {
-                if(vertice.getNome().equals(this.arestas.get(i).getNomeOrigem()) || vertice.getNome().equals(this.arestas.get(i).getNomeDestino()) ){
+                if (vertice.getNome().equals(this.arestas.get(i).getNomeOrigem()) || vertice.getNome().equals(this.arestas.get(i).getNomeDestino())) {
                     removeAresta(arestas.get(i));
                 }
             }
@@ -130,6 +131,49 @@ public class Grafo {
 
         }
         return matrizAdjacencia;
+    }
+
+    private int getOrdem() {
+        return this.vertices.size();
+    }
+
+    private int getGrau(Vertice vertice) {
+
+        int cont = 0;
+        int i;
+
+        for (i = 0; i < this.arestas.size(); i++) {
+            if (this.arestas.get(i).getDestino() == vertice) {
+                cont++;
+            }
+        }
+
+        int contAux = 0;
+
+        for (i = 0; i < this.arestas.size(); i++) {
+            if (this.arestas.get(i).getOrigem().getNome().equals(vertice.getNome())) {
+                contAux++;
+            }
+        }
+
+        return cont + contAux;
+    }
+
+    public boolean isConexo() {
+        int matriz[][] = getMatrizAdjacencia();
+        int n = this.getVertices().size();
+        int m = this.getArestas().size();
+        ArrayList<Boolean> visitados;
+        ArrayList<String> nomeVertice;
+        int i, k;
+        
+        for (i = 0; i < n; i++) {
+            for (k = 0; k < m; k++) {
+            }
+
+        }
+
+        return true;
     }
 
 }
