@@ -5,6 +5,7 @@
  */
 package teoria.dos.grafos;
 
+import java.util.Set;
 import teoria.dos.grafos.Model.Aresta;
 import teoria.dos.grafos.Model.Grafo;
 import teoria.dos.grafos.Model.Vertice;
@@ -43,6 +44,13 @@ public class TeoriaDosGrafos {
                 System.out.println("" + matriz[i][j]);
             }
             System.out.println("\n");
+        }
+        grafo.setConexo();
+        
+        if(grafo.isConexo()){
+            System.out.println("é conexo");
+        }else{
+            System.out.println("não é conexo");
         }
     }
 

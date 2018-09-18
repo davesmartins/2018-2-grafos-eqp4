@@ -17,6 +17,16 @@ public class Grafo {
     ArrayList<Aresta> arestas;
     private boolean conexo;
 
+    public boolean isConexo() {
+        return conexo;
+    }
+
+    public void setConexo() {
+        verificaGrafoConexo();
+    }
+    
+    
+
     public Grafo() {
         this.vertices = new ArrayList<Vertice>();
         this.arestas = new ArrayList<Aresta>();
@@ -159,21 +169,31 @@ public class Grafo {
         return cont + contAux;
     }
 
-    public boolean isConexo() {
-        int matriz[][] = getMatrizAdjacencia();
-        int n = this.getVertices().size();
-        int m = this.getArestas().size();
-        ArrayList<Boolean> visitados;
-        ArrayList<String> nomeVertice;
-        int i, k;
-        
-        for (i = 0; i < n; i++) {
-            for (k = 0; k < m; k++) {
+    private void verificaGrafoConexo() {
+        for (Vertice vertice : vertices) {
+            /*
+            Verifica se o vertice tem ligação com outro vertice
+             */
+            if (vertice.ligacoes.isEmpty() && !isVerticeTemConexao(vertice)) {
+                conexo = false;
             }
-
         }
 
-        return true;
+        conexo = true;
     }
 
+    /*
+	 * verifica se o vertice tem conexão com algum outro vertice
+     */
+    private boolean isVerticeTemConexao(Vertice vertice) {
+        for (Vertice verticeInicio : vertices) {
+            for (Aresta aresta : verticeInicio.ligacoes) {
+                if (aresta.getOrigem().getNome().equals(vertice.getNome()) || 
+                        aresta.getDestino().getNome().equals(vertice.getNome())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
