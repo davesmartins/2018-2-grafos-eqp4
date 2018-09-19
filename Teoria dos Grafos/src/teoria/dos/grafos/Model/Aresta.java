@@ -14,7 +14,8 @@ public class Aresta {
     private boolean direcionado;
     private Vertice origem;
     private Vertice destino;
-
+    private String nome;
+    
     public Aresta(Vertice origem, Vertice destino) {
         setOrigem(origem);
         setDestino(destino);
@@ -24,6 +25,23 @@ public class Aresta {
         setDirecionado(direcionado);
         setOrigem(origem);
         setDestino(destino);
+    }
+
+    public Aresta(boolean direcionado, Vertice origem, Vertice destino, String nome) {
+        this.direcionado = direcionado;
+        this.origem = origem;
+        this.destino = destino;
+        this.nome = nome;
+    }
+    
+    
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
     

@@ -13,9 +13,15 @@ import java.util.ArrayList;
  */
 public class Grafo {
 
-    ArrayList<Vertice> vertices;
-    ArrayList<Aresta> arestas;
+    private String nome;
+    private ArrayList<Vertice> vertices;
+    private ArrayList<Aresta> arestas;
     private boolean conexo;
+
+    public Grafo() {
+        this.vertices = new ArrayList<Vertice>();
+        this.arestas = new ArrayList<Aresta>();
+    }
 
     public boolean isConexo() {
         return conexo;
@@ -24,12 +30,13 @@ public class Grafo {
     public void setConexo() {
         verificaGrafoConexo();
     }
-    
-    
 
-    public Grafo() {
-        this.vertices = new ArrayList<Vertice>();
-        this.arestas = new ArrayList<Aresta>();
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Vertice adicionaVertice(String nome) {
@@ -188,9 +195,16 @@ public class Grafo {
     private boolean isVerticeTemConexao(Vertice vertice) {
         for (Vertice verticeInicio : vertices) {
             for (Aresta aresta : verticeInicio.ligacoes) {
-                if (aresta.getOrigem().getNome().equals(vertice.getNome()) || 
-                        aresta.getDestino().getNome().equals(vertice.getNome())) {
-                    return true;
+                if (aresta.isDirecionado()) {
+                    if (aresta.getOrigem().getNome().equals(vertice.getNome())
+                            && aresta.getDestino().getNome().equals(vertice.getNome())) {
+                        return true;
+                    } else {
+                        if (aresta.getOrigem().getNome().equals(vertice.getNome())
+                                || aresta.getDestino().getNome().equals(vertice.getNome())) {
+                            return true;
+                        }
+                    }
                 }
             }
         }

@@ -21,6 +21,13 @@ public class Vertice {
         this.ligacoes = new ArrayList<Aresta>();
     }
 
+    public Vertice() {
+        this.nome = "";
+               
+    }
+    
+    
+
     public String getNome() {
         return nome;
     }
