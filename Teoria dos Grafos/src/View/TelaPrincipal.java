@@ -7,6 +7,7 @@ package View;
 
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import teoria.dos.grafos.Model.Aresta;
 import teoria.dos.grafos.Model.Grafo;
 import teoria.dos.grafos.Model.Vertice;
@@ -20,7 +21,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private CriarGrafo criarGrafo;
     private CriarVertice criarVertice;
     private CriarAresta criarAresta;
-    static private Grafo grafo = new Grafo();
+    private RemoverVertice removerVertice;
+    private RemoverAresta removerAresta;
+    private GrauUmVertice grauVertice;
+    static private Grafo grafo;
 
     /**
      * Creates new form TelaPrincipal
@@ -47,6 +51,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtInfoGrafo = new javax.swing.JTextPane();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        chkOrdem = new javax.swing.JCheckBox();
+        chkGrau = new javax.swing.JCheckBox();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +89,31 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Remover vértice");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Remover aresta");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        chkOrdem.setText("Ordem do grafo");
+
+        chkGrau.setText("Grau dos vertices");
+
+        jButton5.setText("Grau de um vértice");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -90,9 +124,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCriarGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnVerGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(chkOrdem)
+                    .addComponent(chkGrau)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(55, 55, 55)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,12 +144,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(chkGrau)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkOrdem)
+                        .addGap(25, 25, 25)
                         .addComponent(btnVerGrafo))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
 
-        jTabbedPaneNovoGrafo.addTab("Novo Grafo", jPanel1);
+        jTabbedPaneNovoGrafo.addTab("Grafo", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,40 +192,111 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnVerGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerGrafoActionPerformed
-        int[][] matriz = grafo.getMatrizAdjacencia();
-        String InfoGrafo = "";
-        int tamanhoMatriz = grafo.getVertices().size();
-        ArrayList<Vertice> vertices = grafo.getVertices();
-        ArrayList<Aresta> arestas = grafo.getArestas();
-
-        int i, j;
-        InfoGrafo = "Nome do grafo: " + grafo.getNome() + "\n";
-        InfoGrafo += "Vertices:";
-        for (i = 0; i < vertices.size(); i++) {
-            InfoGrafo += " " + vertices.get(i).getNome();
-        }
-
-        InfoGrafo += "Arestas:";
-        for (i = 0; i < vertices.size(); i++) {
-            InfoGrafo += " " + arestas.get(i).getNome() + "(" + 
-                    arestas.get(i).getNomeOrigem() + " - " + arestas.get(i).getNomeDestino() + ")";
-        }
-
-        InfoGrafo += "\nMatriz de adjacencias: \n";
-        for (i = 0; i < tamanhoMatriz; i++) {
-            for (j = 0; j < tamanhoMatriz; j++) {
-                InfoGrafo += " " + Integer.toString(matriz[i][j]);
-            }
-            InfoGrafo += "\n";
-        }
-        InfoGrafo += "\n";
-        txtInfoGrafo.setText(InfoGrafo);
+        MostraGrafo();
     }//GEN-LAST:event_btnVerGrafoActionPerformed
+
+    public void MostraGrafo() {
+        String infoGrafo = "";
+
+        if (grafo == null) {
+            grafo = new Grafo();
+            infoGrafo = "O grafo ainda não existe";
+        } else {
+            int[][] matriz = grafo.getMatrizAdjacencia();
+            int tamanhoMatriz = grafo.getVertices().size();
+            ArrayList<Vertice> vertices = grafo.getVertices();
+            ArrayList<Aresta> arestas = grafo.getArestas();
+            int i, j;
+            infoGrafo = "Nome do grafo: " + grafo.getNome();
+            grafo.setConexo();
+            if (grafo.isConexo()) {
+                infoGrafo += " - Grafo conexo";
+            } else {
+                infoGrafo += " - Grafo não conexo";
+            }
+
+            if (chkOrdem.isSelected()) {
+                infoGrafo += "\nOrdem do grafo: " + Integer.toString(grafo.getOrdem());
+            }
+
+            if (grafo.getVertices().size() > 0) {
+                infoGrafo += "\nVertices:\n";
+                for (i = 0; i < vertices.size(); i++) {
+                    infoGrafo += " " + vertices.get(i).getNome();
+
+                    if (chkGrau.isSelected()) {
+                        infoGrafo += " - Grau do vértice: " + grafo.getGrau(vertices.get(i)) + "\n";
+                    }
+                }
+            }
+
+            if (grafo.getArestas().size() > 0) {
+                infoGrafo += "\nArestas:";
+                for (i = 0; i < arestas.size(); i++) {
+                    infoGrafo += " " + arestas.get(i).getNome() + "("
+                            + arestas.get(i).getNomeOrigem() + " - " + arestas.get(i).getNomeDestino() + ")";
+                }
+            }
+
+            infoGrafo += "\nMatriz de adjacencias: \n";
+            for (i = 0; i < tamanhoMatriz; i++) {
+                for (j = 0; j < tamanhoMatriz; j++) {
+                    infoGrafo += " " + Integer.toString(matriz[i][j]);
+                }
+                infoGrafo += "\n";
+            }
+            infoGrafo += "\n";
+        }
+
+        txtInfoGrafo.setText(infoGrafo);
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         criarAresta = new CriarAresta();
         criarAresta.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (grafo.getNome() == null) {
+            JOptionPane.showMessageDialog(null, "Você precisa criar um grafo primeiro");
+            this.btnCriarGrafoActionPerformed(evt);
+        } else if (grafo.getVertices().size() == 0) {
+            JOptionPane.showMessageDialog(null, "Você precisa criar um vértice primeiro");
+            this.jButton1ActionPerformed(evt);
+        } else {
+            removerVertice = new RemoverVertice();
+            removerVertice.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if (grafo.getNome() == null) {
+            JOptionPane.showMessageDialog(null, "Você precisa criar um grafo primeiro");
+            this.btnCriarGrafoActionPerformed(evt);
+        } else if (grafo.getVertices().size() == 0) {
+            JOptionPane.showMessageDialog(null, "Você precisa criar um vértice primeiro");
+            this.jButton1ActionPerformed(evt);
+        } else if (grafo.getArestas().size() == 0) {
+            JOptionPane.showMessageDialog(null, "Você precisa criar uma aresta primeiro");
+            this.jButton2ActionPerformed(evt);
+        } else {
+            removerAresta = new RemoverAresta();
+            removerAresta.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        if (grafo.getNome() == null) {
+            JOptionPane.showMessageDialog(null, "Você precisa criar um grafo primeiro");
+            this.btnCriarGrafoActionPerformed(evt);
+        } else if (grafo.getVertices().size() == 0) {
+            JOptionPane.showMessageDialog(null, "Você precisa criar um vértice primeiro");
+            this.jButton1ActionPerformed(evt);
+        } else {
+            grauVertice = new GrauUmVertice();
+            grauVertice.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,6 +334,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     static public Grafo getGrafo() {
+        if (grafo == null) {
+            grafo = new Grafo();
+        }
         return grafo;
     }
 
@@ -224,8 +347,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarGrafo;
     private javax.swing.JButton btnVerGrafo;
+    private javax.swing.JCheckBox chkGrau;
+    private javax.swing.JCheckBox chkOrdem;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPaneNovoGrafo;

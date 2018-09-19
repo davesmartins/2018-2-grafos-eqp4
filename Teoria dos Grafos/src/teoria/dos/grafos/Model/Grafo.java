@@ -51,7 +51,7 @@ public class Grafo {
 
     public void removeVertice(Vertice vertice) {
         if (vertices.contains(vertice)) {
-            for (int i = 0; i < this.vertices.size(); i++) {
+            for (int i = 0; i < this.arestas.size(); i++) {
                 if (vertice.getNome().equals(this.arestas.get(i).getNomeOrigem()) || vertice.getNome().equals(this.arestas.get(i).getNomeDestino())) {
                     removeAresta(arestas.get(i));
                 }
@@ -150,11 +150,11 @@ public class Grafo {
         return matrizAdjacencia;
     }
 
-    private int getOrdem() {
+    public int getOrdem() {
         return this.vertices.size();
     }
 
-    private int getGrau(Vertice vertice) {
+    public int getGrau(Vertice vertice) {
 
         int cont = 0;
         int i;

@@ -5,24 +5,36 @@
  */
 package View;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import teoria.dos.grafos.Model.Aresta;
 import teoria.dos.grafos.Model.Grafo;
 
 /**
  *
  * @author Gabriel
  */
-public class CriarGrafo extends javax.swing.JFrame {
+public class RemoverAresta extends javax.swing.JFrame {
     
-    private TelaPrincipal telaPrincipal;
-    private String nome;
-    private String[] padroes = {"Sem padrão", "Orientado", "Não Orientado"};
-
+    Grafo grafo = new Grafo();
+    private String[] arestas;
+    
     /**
-     * Creates new form CriarGrafo
+     * Creates new form RemoverAresta
      */
-    public CriarGrafo() {
+    public RemoverAresta() {
+        arestas = atualizaArray();
         initComponents();
+    }
+    
+    private String[] atualizaArray() {
+        ArrayList listaArestas = new ArrayList();
+        int tamanho = TelaPrincipal.getGrafo().getArestas().size();
+        int i;
+        for (i = 0; i < tamanho; i++) {
+            listaArestas.add(TelaPrincipal.getGrafo().getArestas().get(i).getNome());
+        }
+        String[] arrayVertice = (String[]) listaArestas.toArray(new String[listaArestas.size()]);
+        return arrayVertice;
     }
 
     /**
@@ -35,15 +47,18 @@ public class CriarGrafo extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(290, 118));
 
-        jLabel1.setText("Nome do grafo");
+        jLabel1.setText("Aresta a ser removida");
 
-        jButton1.setText("Criar");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<> (arestas));
+
+        jButton1.setText("Remover");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -64,12 +79,12 @@ public class CriarGrafo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNome)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 136, Short.MAX_VALUE)
+                        .addGap(0, 114, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
@@ -81,13 +96,13 @@ public class CriarGrafo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 67, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -95,13 +110,13 @@ public class CriarGrafo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Grafo grafo = TelaPrincipal.getGrafo();
-        grafo.setNome(txtNome.getText());
-        
+        grafo = TelaPrincipal.getGrafo();
+        Aresta arestaRemover = grafo.getArestas().get(jComboBox1.getSelectedIndex());
+        grafo.removeAresta(arestaRemover);
         TelaPrincipal.setGrafo(grafo);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -123,32 +138,28 @@ public class CriarGrafo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CriarGrafo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RemoverAresta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CriarGrafo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RemoverAresta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CriarGrafo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RemoverAresta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CriarGrafo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RemoverAresta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CriarGrafo().setVisible(true);
+                new RemoverAresta().setVisible(true);
             }
         });
-    }
-
-    public String getNome() {
-        return nome;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

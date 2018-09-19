@@ -48,8 +48,8 @@
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Novo Grafo">
-                <Property name="tabTitle" type="java.lang.String" value="Novo Grafo"/>
+              <JTabbedPaneConstraints tabName="Grafo">
+                <Property name="tabTitle" type="java.lang.String" value="Grafo"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -64,9 +64,14 @@
                           <Component id="btnCriarGrafo" max="32767" attributes="0"/>
                           <Component id="btnVerGrafo" max="32767" attributes="0"/>
                           <Component id="jButton2" max="32767" attributes="0"/>
+                          <Component id="jButton3" max="32767" attributes="0"/>
+                          <Component id="jButton4" max="32767" attributes="0"/>
+                          <Component id="chkOrdem" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkGrau" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="489" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="481" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -81,7 +86,17 @@
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="156" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="chkGrau" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkOrdem" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="btnVerGrafo" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
@@ -132,6 +147,40 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Remover v&#xe9;rtice"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Remover aresta"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkOrdem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ordem do grafo"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="chkGrau">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Grau dos vertices"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Grau de um v&#xe9;rtice"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
