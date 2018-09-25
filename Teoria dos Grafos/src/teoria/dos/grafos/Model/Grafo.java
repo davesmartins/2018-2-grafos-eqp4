@@ -183,10 +183,12 @@ public class Grafo {
              */
             if (vertice.ligacoes.isEmpty() && !isVerticeTemConexao(vertice)) {
                 conexo = false;
+                return;
+            } else {
+                conexo = true;
+
             }
         }
-
-        conexo = true;
     }
 
     /*
