@@ -16,11 +16,83 @@ public class Grafo {
     private String nome;
     private ArrayList<Vertice> vertices;
     private ArrayList<Aresta> arestas;
-    private boolean conexo;
+    private boolean conexo = false;
+    private boolean valorado = false;
+    private boolean regular = false;
+    private boolean direcionado = false;
 
     public Grafo() {
         this.vertices = new ArrayList<Vertice>();
         this.arestas = new ArrayList<Aresta>();
+    }
+
+    public Grafo(ArrayList<Vertice> vertices, ArrayList<Aresta> arestas) {
+        this.vertices = vertices;
+        this.arestas = arestas;
+    }
+
+    public boolean isDirecionado() {
+        return direcionado;
+    }
+
+    public void setDirecionado() {
+        if (arestas.size() > 0) {
+            for (int i = 0; i < arestas.size(); i++) {
+                if (!arestas.get(i).isDirecionado()) {
+                    this.direcionado = false;
+                    return;
+                }
+            }
+            this.direcionado = true;
+        } else {
+            this.direcionado = false;
+        }
+
+    }
+
+    public boolean isRegular() {
+        return regular;
+    }
+
+    public void setRegular() {
+        if (vertices.size() > 0) {
+//            for (int i = 0; i < vertices.size(); i++) {
+//                if (vertices.get(i).ligacoes.size() != vertices.get(i + 1).ligacoes.size()) {
+//                    this.regular = false;
+//                    return;
+//                }
+//            }
+            int aux = vertices.get(0).ligacoes.size();
+            for (Vertice vertice : vertices) {
+                if (aux != vertice.ligacoes.size()) {
+                    this.regular = false;
+                    return;
+                }
+            }
+
+            this.regular = true;
+        } else {
+            this.regular = false;
+        }
+    }
+
+    public boolean isValorado() {
+        return valorado;
+    }
+
+    public void setValorado() {
+        if (arestas.size() > 0) {
+            for (int i = 0; i < arestas.size(); i++) {
+                if (arestas.get(i).getValor() == 0) {
+                    this.valorado = false;
+                    return;
+                }
+            }
+            this.valorado = true;
+        } else {
+            this.valorado = false;
+        }
+
     }
 
     public boolean isConexo() {
@@ -62,13 +134,6 @@ public class Grafo {
 
     public void setVertices(ArrayList<Vertice> vertices) {
         this.vertices = vertices;
-    }
-
-    public Aresta adicionaAresta(Vertice origem, Vertice destino) {
-        Aresta aresta = new Aresta(origem, destino);
-        origem.adicionaLigacoes(aresta);
-        arestas.add(aresta);
-        return aresta;
     }
 
     public void adicionaAresta(Aresta aresta) {
@@ -211,5 +276,12 @@ public class Grafo {
             }
         }
         return false;
+    }
+
+    public void verificaTudo() {
+        setConexo();
+        setValorado();
+        setRegular();
+        setDirecionado();
     }
 }

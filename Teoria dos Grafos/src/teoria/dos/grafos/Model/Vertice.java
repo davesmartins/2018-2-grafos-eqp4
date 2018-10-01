@@ -14,20 +14,19 @@ import java.util.ArrayList;
 public class Vertice {
 
     private String nome;
+    private double valor;
     ArrayList<Aresta> ligacoes;
 
     public Vertice(String nome) {
         this.nome = nome;
         this.ligacoes = new ArrayList<Aresta>();
     }
-
+    
     public Vertice() {
         this.nome = "";
                
     }
     
-    
-
     public String getNome() {
         return nome;
     }
@@ -47,5 +46,15 @@ public class Vertice {
     void adicionaLigacoes(Aresta aresta) {
         this.ligacoes.add(aresta);
     }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
+    
+    
 
 }

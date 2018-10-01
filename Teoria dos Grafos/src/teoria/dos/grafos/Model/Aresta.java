@@ -15,27 +15,30 @@ public class Aresta {
     private Vertice origem;
     private Vertice destino;
     private String nome;
+    private double valor;
     
     public Aresta(Vertice origem, Vertice destino) {
         setOrigem(origem);
         setDestino(destino);
+        setValor(0);
+        setDirecionado(false);
     }
 
     public Aresta(boolean direcionado, Vertice origem, Vertice destino) {
         setDirecionado(direcionado);
         setOrigem(origem);
         setDestino(destino);
+        setValor(0);
     }
 
-    public Aresta(boolean direcionado, Vertice origem, Vertice destino, String nome) {
-        this.direcionado = direcionado;
-        this.origem = origem;
-        this.destino = destino;
-        this.nome = nome;
+    public Aresta(boolean direcionado, Vertice origem, Vertice destino, String nome, float valor) {
+        setDirecionado(direcionado);
+        setOrigem(origem);
+        setDestino(destino);
+        setNome(nome);
+        setValor(valor);
     }
     
-    
-
     public String getNome() {
         return nome;
     }
@@ -44,8 +47,6 @@ public class Aresta {
         this.nome = nome;
     }
     
-    
-
     public boolean isDirecionado() {
         return direcionado;
     }
@@ -77,6 +78,15 @@ public class Aresta {
     public void setDestino(Vertice destino) {
         this.destino = destino;
     }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
+    
     
     
 
