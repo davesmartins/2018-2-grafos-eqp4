@@ -5,9 +5,7 @@
         <group>
             <file>file:/C:/Users/Gabriel/Documents/Desenvolvimento/Faculdade/Grafos/Teoria%20dos%20Grafos/src/teoria/dos/grafos/Model/Grafo.java</file>
             <file>file:/C:/Users/Gabriel/Documents/Desenvolvimento/Faculdade/Grafos/Teoria%20dos%20Grafos/src/View/TelaPrincipal.java</file>
-            <file>file:/C:/Users/Gabriel/Documents/Desenvolvimento/Faculdade/Grafos/Teoria%20dos%20Grafos/src/teoria/dos/grafos/Model/Vertice.java</file>
-            <file>file:/C:/Users/Gabriel/Documents/Desenvolvimento/Faculdade/Grafos/Teoria%20dos%20Grafos/src/teoria/dos/grafos/Model/Aresta.java</file>
-            <file>file:/C:/Users/Gabriel/Documents/Desenvolvimento/Faculdade/Grafos/Teoria%20dos%20Grafos/src/View/CriarAresta.java</file>
+            <file>file:/C:/Users/Gabriel/Documents/Desenvolvimento/Faculdade/Grafos/Teoria%20dos%20Grafos/src/teoria/dos/grafos/Model/Dijkstra.java</file>
         </group>
     </open-files>
 </project-private>
