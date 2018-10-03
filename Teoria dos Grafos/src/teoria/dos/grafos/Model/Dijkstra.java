@@ -55,16 +55,16 @@ public class Dijkstra {
         return Double.MAX_VALUE;
     }
 
-    private void visitarTodosNos(String noId, double distanciaAnterior, ArrayList<Vertice> nosJaVisitados) {
+    private void visitarTodosNos(String nome, double distanciaAnterior, ArrayList<Vertice> nosJaVisitados) {
 
         ArrayList<Vertice> alcancaveis;
         int indice, i;
-        indice = this.grafo.getIndiceVertice(noId);
+        indice = this.grafo.getIndiceVertice(nome);
         alcancaveis = this.grafo.getNosAdjacentes(this.grafo.getVertices().get(indice));
         alcancaveis.removeAll(nosJaVisitados);
 
         for (i = 0; i < alcancaveis.size(); i++) {
-            double distancia = calcularDistancia(noId, alcancaveis.get(i).getNome());
+            double distancia = calcularDistancia(nome, alcancaveis.get(i).getNome());
 
             if (distancia + distanciaAnterior < this.distancias.get(alcancaveis.get(i).getNome())) {
                 this.distancias.put(alcancaveis.get(i).getNome(), distancia + distanciaAnterior);
@@ -73,14 +73,14 @@ public class Dijkstra {
 
         for (i = 0; i < alcancaveis.size(); i++) {
             nosJaVisitados.add(alcancaveis.get(i));
-            visitarTodosNos(alcancaveis.get(i).getNome(), this.distancias.get(alcancaveis.get(i).getValor()), nosJaVisitados);
+            visitarTodosNos(alcancaveis.get(i).getNome(), this.distancias.get(alcancaveis.get(i).getNome()), nosJaVisitados);
             nosJaVisitados.remove(alcancaveis.get(i));
         }
     }
 
     public double menorDistancia(Vertice destino) {
         if (this.distancias.get(destino.getNome()) != null) {
-            return this.distancias.get(destino.getValor());
+            return this.distancias.get(destino.getNome());
         } else {
             return -1;
         }

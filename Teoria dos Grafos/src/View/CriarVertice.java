@@ -5,6 +5,7 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
 import teoria.dos.grafos.Model.Grafo;
 import teoria.dos.grafos.Model.Vertice;
 
@@ -13,9 +14,9 @@ import teoria.dos.grafos.Model.Vertice;
  * @author Gabriel
  */
 public class CriarVertice extends javax.swing.JFrame {
-    
+
     static Vertice vertice;
-    
+
     /**
      * Creates new form CriarVertice
      */
@@ -102,8 +103,20 @@ public class CriarVertice extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeVerticeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String nome = txtNomeVertice.getText();
+        if (nome.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Você deve dar um nome ao vértice");
+            return;
+        }
         Grafo grafo = TelaPrincipal.getGrafo();
-        grafo.adicionaVertice(txtNomeVertice.getText());
+
+        for (Vertice verticeVerificar : grafo.getVertices()) {
+            if (nome.equals(verticeVerificar.getNome()) ) {
+                JOptionPane.showMessageDialog(null, "Já existe um vertice com esse nome, escolha outro");
+                return;
+            }
+        }
+        grafo.adicionaVertice(nome);
         TelaPrincipal.setGrafo(grafo);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

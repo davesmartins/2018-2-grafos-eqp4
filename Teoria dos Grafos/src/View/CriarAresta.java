@@ -6,6 +6,7 @@
 package View;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import teoria.dos.grafos.Model.Aresta;
 import teoria.dos.grafos.Model.Grafo;
 import teoria.dos.grafos.Model.Vertice;
@@ -164,14 +165,27 @@ public class CriarAresta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String nome = txtNomeAresta.getText();
+
+        if (nome.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Você deve dar um nome a aresta");
+            return;
+        }
         Grafo grafo = TelaPrincipal.getGrafo();
+
+        for (Aresta arestaVerificar : grafo.getArestas()) {
+            if (nome.equals(arestaVerificar.getNome())) {
+                JOptionPane.showMessageDialog(null, "Já existe uma aresta com esse nome, escolha outro");
+                return;
+            }
+        }
         Vertice origem = grafo.getVertices().get(cmbOrigem.getSelectedIndex());
         Vertice destino = grafo.getVertices().get(cmbDestino.getSelectedIndex());
         boolean orientado = false;
         if (cmbOrientacao.getSelectedIndex() == 0) {
             orientado = true;
         }
-        Aresta aresta = new Aresta(orientado, origem, destino, txtNomeAresta.getText(), Double.parseDouble(txtValor.getText()));
+        Aresta aresta = new Aresta(orientado, origem, destino, nome, Double.parseDouble(txtValor.getText()));
 
         grafo.adicionaAresta(aresta);
 
