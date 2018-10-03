@@ -12,7 +12,8 @@ import java.util.ArrayList;
  * @author betto
  */
 public class Grafo {
-
+    
+    
     private String nome;
     private ArrayList<Vertice> vertices;
     private ArrayList<Aresta> arestas;
@@ -162,6 +163,18 @@ public class Grafo {
     public ArrayList<Aresta> getArestas() {
         return (ArrayList<Aresta>) arestas.clone();
     }
+    
+    public ArrayList<Vertice> getNosAdjacentes(Vertice vertice) {
+        ArrayList<Vertice> adjacentes = new ArrayList<>();
+        int i;
+        for (i = 0; i < this.getVertices().size(); i++) {
+            if (this.isAdjacente(vertice, this.getVertices().get(i))) {
+                adjacentes.add(this.getVertices().get(i));
+            }
+        }
+
+        return adjacentes;
+    }
 
     public boolean isAdjacente(Vertice vertice1, Vertice vertice2) {
         int i;
@@ -283,5 +296,14 @@ public class Grafo {
         setValorado();
         setRegular();
         setDirecionado();
+    }
+    
+    public int getIndiceVertice(String nome){
+        for(int i = 0; i<vertices.size(); i++ ){
+            if(vertices.get(i).getNome() == nome){
+                return i;
+            }
+        }
+        return 0;
     }
 }

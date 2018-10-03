@@ -171,7 +171,7 @@ public class CriarAresta extends javax.swing.JFrame {
         if (cmbOrientacao.getSelectedIndex() == 0) {
             orientado = true;
         }
-        Aresta aresta = new Aresta(orientado, origem, destino, txtNomeAresta.getText(), Integer.parseInt(txtValor.getText()));
+        Aresta aresta = new Aresta(orientado, origem, destino, txtNomeAresta.getText(), Double.parseDouble(txtValor.getText()));
 
         grafo.adicionaAresta(aresta);
 

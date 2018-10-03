@@ -31,7 +31,7 @@ public class Aresta {
         setValor(0);
     }
 
-    public Aresta(boolean direcionado, Vertice origem, Vertice destino, String nome, float valor) {
+    public Aresta(boolean direcionado, Vertice origem, Vertice destino, String nome, double valor) {
         setDirecionado(direcionado);
         setOrigem(origem);
         setDestino(destino);
@@ -83,7 +83,7 @@ public class Aresta {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
     
