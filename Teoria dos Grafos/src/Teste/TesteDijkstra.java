@@ -26,7 +26,7 @@ public class TesteDijkstra {
     public static void main(String[] args) {
         Grafo garfo = new Grafo();
 
-        Vertice no1 = new Vertice("a");
+        Vertice no1 = new Vertice("a u");
         Vertice no2 = new Vertice("b");
         Vertice no3 = new Vertice("c");
         Vertice no4 = new Vertice("d");
@@ -39,8 +39,8 @@ public class TesteDijkstra {
         Aresta a4 = new Aresta(true, no4, no5, "a4", 4);
         Aresta a5 = new Aresta(true, no5, no6, "a5", 5);
         Aresta a6 = new Aresta(true, no6, no1, "a6", 5);
-        Aresta a8 = new Aresta(true, no7, no4, "a7", 4);
-
+        Aresta a8 = new Aresta(true, no7, no4, "a7", 0);
+        garfo.setDirecionado(true);
         garfo.adicionaVertice(no1);
         garfo.adicionaVertice(no2);
         garfo.adicionaVertice(no3);
@@ -48,7 +48,7 @@ public class TesteDijkstra {
         garfo.adicionaVertice(no5);
         garfo.adicionaVertice(no6);
         garfo.adicionaVertice(no7);
-
+        
         garfo.adicionaAresta(a1);
         garfo.adicionaAresta(a2);
         garfo.adicionaAresta(a3);
@@ -63,7 +63,12 @@ public class TesteDijkstra {
 //        System.out.println(digao.menorDistancia(no4));
         garfo.setNome("Grafao");
         String g = GrafoToDot.exportaGrafoDot(garfo);
-
+        
+        Grafo grafaoPika = GrafoToDot.importaGrafoDot(g);
+        
+        if(garfo.equals(grafaoPika)){
+            System.out.println("BRIGADO DEUS");
+        }
 //        String g = "digraph G {\n"
 //                + " a -> b -> c;\n"
 //                + " b -> d ;\n"

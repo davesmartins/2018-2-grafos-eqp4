@@ -39,6 +39,10 @@ public class Aresta {
         setValor(valor);
     }
     
+    public Aresta (){
+        
+    }
+    
     public String getNome() {
         return nome;
     }

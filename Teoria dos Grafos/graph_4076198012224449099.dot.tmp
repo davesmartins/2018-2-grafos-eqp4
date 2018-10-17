@@ -1,5 +1,0 @@
-digraph grafo {
- a -> a [label = "15.0" ];
- a -> b [label = "55.0" ];
-
- }

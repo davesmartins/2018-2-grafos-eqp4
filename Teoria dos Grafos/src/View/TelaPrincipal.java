@@ -13,13 +13,19 @@ import teoria.dos.grafos.Model.Aresta;
 import teoria.dos.grafos.Model.Grafo;
 import teoria.dos.grafos.Model.Vertice;
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import teoria.dos.grafos.Model.GrafoToDot;
 
 /**
@@ -150,6 +156,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jButton7.setText("Carregar grafo");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Salvar");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -387,6 +398,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mostrarGrafo();
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter dotFilter = new FileNameExtensionFilter(
+                "dot files (*.dot)", "dot");
+        chooser.setFileFilter(dotFilter);
+        int retrival = chooser.showSaveDialog(null);
+        if (retrival == JFileChooser.APPROVE_OPTION) {
+            try {
+                InputStream is = new FileInputStream(chooser.getSelectedFile().toString());
+                BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+                String line = buf.readLine();
+                StringBuilder sb = new StringBuilder();
+
+                while (line != null) {
+                    sb.append(line).append("\n");
+                    line = buf.readLine();
+                }
+
+                String dotGraph = sb.toString();
+                System.out.println(dotGraph);
+                Grafo grafo = GrafoToDot.importaGrafoDot(dotGraph);
+                setGrafo(grafo);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     public void salvarGrafo() throws FileNotFoundException {
         String dotGraph = "";
 
@@ -419,7 +460,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Container container = frame.getContentPane();
 
         //carrega a imagem passando o nome da mesma
-        ImageIcon img = new ImageIcon("out.png");
+        ImageIcon img = new ImageIcon(nomeArquivo + " - imagem.png");
 
         //adiciona a imagem em um label
         JLabel label = new JLabel(img);
