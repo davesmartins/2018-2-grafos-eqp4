@@ -1,0 +1,5 @@
+digraph grafao {
+ a -> b [label = "44.0" ];
+ a -> c [label = "88.0" ];
+
+ }

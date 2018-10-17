@@ -12,8 +12,7 @@ import java.util.ArrayList;
  * @author betto
  */
 public class Grafo {
-    
-    
+
     private String nome;
     private ArrayList<Vertice> vertices;
     private ArrayList<Aresta> arestas;
@@ -36,19 +35,8 @@ public class Grafo {
         return direcionado;
     }
 
-    public void setDirecionado() {
-        if (arestas.size() > 0) {
-            for (int i = 0; i < arestas.size(); i++) {
-                if (!arestas.get(i).isDirecionado()) {
-                    this.direcionado = false;
-                    return;
-                }
-            }
-            this.direcionado = true;
-        } else {
-            this.direcionado = false;
-        }
-
+    public void setDirecionado(Boolean direcionado) {
+        this.direcionado = direcionado;
     }
 
     public boolean isRegular() {
@@ -138,7 +126,17 @@ public class Grafo {
     }
 
     public void adicionaAresta(Aresta aresta) {
+        int i, j;
         arestas.add(aresta);
+        if (aresta.isDirecionado()) {
+            i = getIndiceVertice(aresta.getNomeOrigem());
+            vertices.get(i).ligacoes.add(aresta);
+        } else {
+            i = getIndiceVertice(aresta.getNomeOrigem());
+            j = getIndiceVertice(aresta.getNomeDestino());
+            vertices.get(i).ligacoes.add(aresta);
+            vertices.get(j).ligacoes.add(aresta);
+        }
     }
 
     public void removeAresta(Aresta aresta) {
@@ -163,7 +161,7 @@ public class Grafo {
     public ArrayList<Aresta> getArestas() {
         return (ArrayList<Aresta>) arestas.clone();
     }
-    
+
     public ArrayList<Vertice> getNosAdjacentes(Vertice vertice) {
         ArrayList<Vertice> adjacentes = new ArrayList<>();
         int i;
@@ -295,15 +293,15 @@ public class Grafo {
         setConexo();
         setValorado();
         setRegular();
-        setDirecionado();
     }
-    
-    public int getIndiceVertice(String nome){
-        for(int i = 0; i<vertices.size(); i++ ){
-            if(vertices.get(i).getNome() == nome){
+
+    public int getIndiceVertice(String nome) {
+        for (int i = 0; i < vertices.size(); i++) {
+            if (vertices.get(i).getNome() == nome) {
                 return i;
             }
         }
         return 0;
     }
+
 }

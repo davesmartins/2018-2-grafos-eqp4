@@ -1,0 +1,17 @@
+digraph Grafao {
+ a -> b [label = "5.0" ];
+ a -- a [label = "5.0" ];
+
+ b -> c [label = "6.0" ];
+
+ c -> d [label = "3.0" ];
+
+ d -> e [label = "4.0" ];
+
+ e -> f [label = "5.0" ];
+
+ f -- a [label = "5.0" ];
+
+ g -> d [label = "4.0" ];
+
+ }
