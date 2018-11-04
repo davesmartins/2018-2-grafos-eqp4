@@ -45,6 +45,9 @@ public class GrafoToDot {
         arrayAux = arrayGrafo[1].split(";\n ")[0].split(";\n");
 
         for (i = 0; i < arrayAux.length; i++) {
+            if(arrayAux[i].contains("@@")){
+                arrayAux[i].replace(" ", "@@");
+            }
             grafo.adicionaVertice(arrayAux[i]);
         }
         
@@ -67,8 +70,10 @@ public class GrafoToDot {
             if(arrayAux[i].contains("label")){
                 aresta.setValor(Double.parseDouble(arrayAux[i].split("label = \"")[1].split("\"")[0]));
             }
+            aresta.setDirecionado(grafo.isDirecionado());
             grafo.adicionaAresta(aresta);
         }
+        grafo.verificaTudo();
         return grafo;
     }
 
@@ -76,8 +81,12 @@ public class GrafoToDot {
         String dotGraph = "", aux = "";
         double valor = 0;
         boolean direct = false;
-
+        
+        
         for (Vertice vertice : grafo.getVertices()) {
+            if(vertice.getNome().contains(" ")){
+                vertice.getNome().replace("@@", " ");
+            }
             dotGraph += "" + vertice.getNome() + ";\n";
         }
         for (Vertice vertice : grafo.getVertices()) {
@@ -109,15 +118,6 @@ public class GrafoToDot {
             dotGraph = "graph " + grafo.getNome() + " {\n" + dotGraph;
         }
         return dotGraph;
-    }
-
-    public int getIndiceNoArray(String letra, String[] array) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == letra) {
-                return i;
-            }
-        }
-        return 0;
     }
 
 }

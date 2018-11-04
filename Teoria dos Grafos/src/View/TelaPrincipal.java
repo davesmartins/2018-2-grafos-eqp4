@@ -44,6 +44,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private AlgoritmosCaminho algoritmosCaminho;
     static private Grafo grafo;
     private String nomeArquivo;
+    private boolean salvo;
 
     /**
      * Creates new form TelaPrincipal
@@ -80,6 +81,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addFocusListener(new java.awt.event.FocusAdapter() {
@@ -176,6 +178,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton10.setText("Limpar Grafo");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -184,6 +193,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVerGrafo))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +253,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVerGrafo)
                     .addComponent(jButton8)
-                    .addComponent(jButton9))
+                    .addComponent(jButton9)
+                    .addComponent(jButton10))
                 .addContainerGap())
         );
 
@@ -371,12 +383,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (grafo.getNome() == null) {
             JOptionPane.showMessageDialog(null, "Você precisa criar um grafo antes");
             this.btnCriarGrafoActionPerformed(evt);
+        } else {
+            try {
+                salvarGrafo();
+                salvo = true;
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        try {
-            salvarGrafo();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -389,13 +404,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } else if (grafo.getArestas().size() == 0) {
             JOptionPane.showMessageDialog(null, "Você precisa criar uma aresta primeiro");
             this.jButton2ActionPerformed(evt);
+        } else if(!salvo) {
+            JOptionPane.showMessageDialog(null, "Você precisa salvar o grafo primeiro");
+            this.jButton8ActionPerformed(evt);
+        }else {
+            mostrarGrafo();
         }
-        try {
-            salvarGrafo();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        mostrarGrafo();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -419,7 +433,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 String dotGraph = sb.toString();
                 System.out.println(dotGraph);
                 Grafo grafo = GrafoToDot.importaGrafoDot(dotGraph);
-                setGrafo(grafo);
+                this.setGrafo(grafo);
+                salvo = true;
+                nomeArquivo = chooser.getSelectedFile().toString();
+                if (nomeArquivo.contains(".dot")) {
+                    nomeArquivo = nomeArquivo.replace(".dot", "");
+                }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -428,16 +447,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        grafo = new Grafo();
+        txtInfoGrafo.setText("");
+    }//GEN-LAST:event_jButton10ActionPerformed
+
     public void salvarGrafo() throws FileNotFoundException {
         String dotGraph = "";
 
         if (nomeArquivo.equals("")) {
-            dotGraph = GrafoToDot.exportaGrafoDot(grafo);
+            dotGraph = GrafoToDot.exportaGrafoDot(grafo).toString();
             JFileChooser chooser = new JFileChooser();
             int retrival = chooser.showSaveDialog(null);
             if (retrival == JFileChooser.APPROVE_OPTION) {
                 //FileOutputStream arquivo = new FileOutputStream(chooser.getSelectedFile() + ".dot");
                 nomeArquivo = chooser.getSelectedFile().toString();
+                if (nomeArquivo.contains(".dot")) {
+                    nomeArquivo = nomeArquivo.replace(".dot", "");
+                }
                 //File arquivo = new File(chooser.getSelectedFile() + ".dot");
                 try (PrintWriter arquivo = new PrintWriter(nomeArquivo + ".dot")) {
                     arquivo.println(dotGraph);
@@ -460,6 +487,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Container container = frame.getContentPane();
 
         //carrega a imagem passando o nome da mesma
+        if(nomeArquivo.contains(".dot")) nomeArquivo = nomeArquivo.replace("", ".dot");
         ImageIcon img = new ImageIcon(nomeArquivo + " - imagem.png");
 
         //adiciona a imagem em um label
@@ -609,6 +637,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkGrau;
     private javax.swing.JCheckBox chkOrdem;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
