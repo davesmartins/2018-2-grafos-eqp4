@@ -45,12 +45,6 @@ public class Grafo {
 
     public void setRegular() {
         if (vertices.size() > 0) {
-//            for (int i = 0; i < vertices.size(); i++) {
-//                if (vertices.get(i).ligacoes.size() != vertices.get(i + 1).ligacoes.size()) {
-//                    this.regular = false;
-//                    return;
-//                }
-//            }
             int aux = vertices.get(0).ligacoes.size();
             for (Vertice vertice : vertices) {
                 if (aux != vertice.ligacoes.size()) {
@@ -128,15 +122,9 @@ public class Grafo {
     public void adicionaAresta(Aresta aresta) {
         int i, j;
         arestas.add(aresta);
-        if (aresta.isDirecionado()) {
-            i = getIndiceVertice(aresta.getNomeOrigem());
-            vertices.get(i).ligacoes.add(aresta);
-        } else {
-            i = getIndiceVertice(aresta.getNomeOrigem());
-            j = getIndiceVertice(aresta.getNomeDestino());
-            vertices.get(i).ligacoes.add(aresta);
-            vertices.get(j).ligacoes.add(aresta);
-        }
+        i = getIndiceVertice(aresta.getNomeOrigem());
+        vertices.get(i).ligacoes.add(aresta);
+
     }
 
     public void removeAresta(Aresta aresta) {

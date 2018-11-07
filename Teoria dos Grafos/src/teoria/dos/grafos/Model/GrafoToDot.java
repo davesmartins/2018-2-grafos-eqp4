@@ -16,13 +16,7 @@ import java.util.ArrayList;
 public class GrafoToDot {
 
     public static String exportaGrafoDot(Grafo grafo) {
-        if (grafo.getNome() == null || grafo.getNome().equals("")) {
-            return "Grafo sem nome";
-        } else {
-            return criaDotDocument(grafo);
-
-        }
-
+        return criaDotDocument(grafo);
     }
 
     public static Grafo importaGrafoDot(String dotGraph) {
@@ -45,14 +39,14 @@ public class GrafoToDot {
         arrayAux = arrayGrafo[1].split(";\n ")[0].split(";\n");
 
         for (i = 0; i < arrayAux.length; i++) {
-            if(arrayAux[i].contains("@@")){
+            if (arrayAux[i].contains("@@")) {
                 arrayAux[i].replace(" ", "@@");
             }
             grafo.adicionaVertice(arrayAux[i]);
         }
-        
-        arrayGrafo = arrayGrafo[1].split(";\n "); 
-        
+
+        arrayGrafo = arrayGrafo[1].split(";\n ");
+
         arrayAux = arrayGrafo[1].split("];\n\n ");
 
         if (grafo.isDirecionado()) {
@@ -61,13 +55,13 @@ public class GrafoToDot {
             aux = "--";
         }
 
-        for (i = 0; i < arrayAux.length -1; i++) {
+        for (i = 0; i < arrayAux.length - 1; i++) {
             Vertice origem = new Vertice(arrayAux[i].split(aux)[0].trim());
             Vertice destino = new Vertice(arrayAux[i].split(aux)[1].split("\\[")[0].trim());
 
             aresta = new Aresta(origem, destino);
             aresta.setNome(arrayAux[i].split("name = \"")[1].split("\"")[0]);
-            if(arrayAux[i].contains("label")){
+            if (arrayAux[i].contains("label")) {
                 aresta.setValor(Double.parseDouble(arrayAux[i].split("label = \"")[1].split("\"")[0]));
             }
             aresta.setDirecionado(grafo.isDirecionado());
@@ -81,12 +75,8 @@ public class GrafoToDot {
         String dotGraph = "", aux = "";
         double valor = 0;
         boolean direct = false;
-        
-        
+
         for (Vertice vertice : grafo.getVertices()) {
-            if(vertice.getNome().contains(" ")){
-                vertice.getNome().replace("@@", " ");
-            }
             dotGraph += "" + vertice.getNome() + ";\n";
         }
         for (Vertice vertice : grafo.getVertices()) {

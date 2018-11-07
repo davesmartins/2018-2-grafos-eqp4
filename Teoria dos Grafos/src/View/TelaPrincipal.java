@@ -404,10 +404,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } else if (grafo.getArestas().size() == 0) {
             JOptionPane.showMessageDialog(null, "Você precisa criar uma aresta primeiro");
             this.jButton2ActionPerformed(evt);
-        } else if(!salvo) {
+        } else if (!salvo) {
             JOptionPane.showMessageDialog(null, "Você precisa salvar o grafo primeiro");
             this.jButton8ActionPerformed(evt);
-        }else {
+        } else {
             mostrarGrafo();
         }
     }//GEN-LAST:event_jButton9ActionPerformed
@@ -450,6 +450,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         grafo = new Grafo();
         txtInfoGrafo.setText("");
+        nomeArquivo = "";
     }//GEN-LAST:event_jButton10ActionPerformed
 
     public void salvarGrafo() throws FileNotFoundException {
@@ -487,7 +488,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Container container = frame.getContentPane();
 
         //carrega a imagem passando o nome da mesma
-        if(nomeArquivo.contains(".dot")) nomeArquivo = nomeArquivo.replace("", ".dot");
+        if (nomeArquivo.contains(".dot")) {
+            nomeArquivo = nomeArquivo.replace("", ".dot");
+        }
         ImageIcon img = new ImageIcon(nomeArquivo + " - imagem.png");
 
         //adiciona a imagem em um label
@@ -551,11 +554,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             if (grafo.getVertices().size() > 0) {
                 infoGrafo += "\nVertices:\n";
-                for (i = 0; i < vertices.size(); i++) {
-                    infoGrafo += " " + vertices.get(i).getNome();
-
+                for (Vertice vertice : grafo.getVertices()) {
+                    infoGrafo += " " + vertice.getNome();
                     if (chkGrau.isSelected()) {
-                        infoGrafo += " - Grau do vértice: " + grafo.getGrau(vertices.get(i));
+                        infoGrafo += " - Grau do vértice: " + grafo.getGrau(vertice);
                     }
                     infoGrafo += "\n";
                 }

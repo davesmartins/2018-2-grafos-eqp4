@@ -42,17 +42,22 @@ public class Dijkstra {
 
     private double calcularDistancia(String nomeInicio, String nomeDestino) {
         int i;
+        Double menorDistancia = Double.MAX_VALUE;
         for (i = 0; i < this.grafo.getArestas().size(); i++) {
             if (this.grafo.getArestas().get(i).isDirecionado()) {
                 if (this.grafo.getArestas().get(i).getOrigem().getNome().equals(nomeInicio) && this.grafo.getArestas().get(i).getDestino().getNome().equals(nomeDestino)) {
-                    return this.grafo.getArestas().get(i).getValor();
+                    if (menorDistancia > this.grafo.getArestas().get(i).getValor()) {
+                        menorDistancia = this.grafo.getArestas().get(i).getValor();
+                    }
                 }
             } else if ((this.grafo.getArestas().get(i).getOrigem().getNome().equals(nomeInicio) && this.grafo.getArestas().get(i).getDestino().getNome().equals(nomeDestino))
-                    || (this.grafo.getArestas().get(i).getOrigem().getNome().equals(nomeInicio) && this.grafo.getArestas().get(i).getDestino().getNome().equals(nomeDestino))) {
-                return this.grafo.getArestas().get(i).getValor();
+                    || (this.grafo.getArestas().get(i).getOrigem().getNome().equals(nomeDestino) && this.grafo.getArestas().get(i).getDestino().getNome().equals(nomeInicio))) {
+                if (menorDistancia > this.grafo.getArestas().get(i).getValor()) {
+                    menorDistancia = this.grafo.getArestas().get(i).getValor();
+                }
             }
         }
-        return Double.MAX_VALUE;
+        return menorDistancia;
     }
 
     private void visitarTodosNos(String nome, double distanciaAnterior, ArrayList<Vertice> nosJaVisitados) {
