@@ -1,6 +1,0 @@
-digraph gefsdfsd {
-a[color=black];
-b[color=black];
- a -> b [name = "1" ];
-
- }
