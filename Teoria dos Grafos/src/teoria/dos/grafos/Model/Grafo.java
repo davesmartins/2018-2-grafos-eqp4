@@ -5,7 +5,11 @@
  */
 package teoria.dos.grafos.Model;
 
+import Utils.VerticeComparator;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import static java.util.Collections.list;
 
 /**
  *
@@ -291,5 +295,121 @@ public class Grafo {
         }
         return 0;
     }
+
+//    public void coloreGrafo() {
+//        int cor = 0;
+//        int indice = 0;
+//
+//        for (int i = 0; i < vertices.size(); i++) {
+//            for (int j = 0; j < vertices.get(i).ligacoes.size(); j++) {
+//                int corFilho = 0;
+//                for (int k = 0; k <= cor; k++) {
+//                    if (vertices.get(i).getCor() == 0 && vertices.get(i).getCor() == cor ){
+//                        corFilho = cor + 1;
+//                    }
+//                    if (vertices.get(i).getCor() != k) {
+//                        corFilho = k;
+//                        break;
+//                    }
+//                }
+//
+//                vertices.get(i).ligacoes.get(j).getDestino().setCor(corFilho);
+//                indice = getIndiceVertice(vertices.get(i).ligacoes.get(j).getDestino().getNome());
+//                vertices.get(indice).setCor(corFilho);
+//
+//                if (corFilho == cor) {
+//                    cor++;
+//                }
+//            }
+//        }
+//    }
+//    public void coloreGrafo() {
+//        int cor = 0;
+//
+//        Collections.sort(vertices, new VerticeComparator());
+//        for (Vertice verticeAtual : vertices) {
+//            for (Aresta ligacaoVerticeAtual : verticeAtual.getLigacoes()) {
+//
+//                if (verticeAtual.getCor() == ligacaoVerticeAtual.getDestino().getCor() && verticeAtual.getCor() == cor) {
+//                    cor++;
+//                }
+//
+//                int corFilho = 0;
+//                for (int i = 0; i <= cor; i++) {
+//                    if (verticeAtual.getCor() != i) {
+//                        corFilho = i;
+//                        for (Aresta ligacoes : arestas) {
+//                            if (ligacoes.getDestino().getNome() == ligacaoVerticeAtual.getDestino().getNome() && ligacoes.getDestino().getCor() == i) {
+//                                corFilho = -1;
+//                            }
+//                            if (ligacoes.getOrigem().getNome() == ligacaoVerticeAtual.getDestino().getNome() && ligacoes.getOrigem().getCor() == i) {
+//                                corFilho = -1;
+//                            }
+//                        }
+//                        if (corFilho >= 0) {
+//                            break;
+//                        }
+//                    }
+//                }
+//                ligacaoVerticeAtual.getDestino().setCor(corFilho);
+//                int indice = getIndiceVertice(ligacaoVerticeAtual.getDestino().getNome());
+//                vertices.get(indice).setCor(corFilho);
+//            }
+//        }
+//    }
+    public void coloreGrafo() {
+       
+        ArrayList<Vertice> listaVertices = getVertices();
+        ArrayList<Vertice> listaVerticesColoridos = new ArrayList();
+
+        Collections.sort(listaVertices, new VerticeComparator());
+
+        for (Vertice vertices : listaVertices) {
+            listaVerticesColoridos.add(coloreVizinhos(vertices));
+        }
+
+        this.setVertices(listaVerticesColoridos);
+
+    }
+    
+    private void coloreVizinhos(Vertice vertice){
+        ArrayList<Vertice> vizinhos = getVizinhos(vertice);
+        
+        int corInicial = vertice.getCor();
+        
+        for(Vertice v : vizinhos){
+            if(v.getCor() == corInicial){
+                v.setCor(corInicial + 1);
+            }
+        }
+    }
+
+   
+    public Boolean isVizinho(Vertice a, Vertice b) {
+        if (a.getLigacoes().contains(b)) {
+            return true;
+        } else if (b.getLigacoes().contains(a)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ArrayList<Vertice> getVizinhos(Vertice vertice) {
+        ArrayList<Vertice> listaVertices = new ArrayList();
+        ArrayList<Vertice> listaVizinhos = new ArrayList();
+
+        listaVertices = this.vertices;
+
+        for (Vertice v : listaVertices) {
+            if (isVizinho(vertice, v)) {
+                listaVizinhos.add(v);
+            }
+        }
+
+        return listaVizinhos;
+
+    }
+
 
 }

@@ -1,0 +1,14 @@
+digraph grafu {
+a[color=black];
+b[color=black];
+c[color=black];
+d[color=black];
+ a -> b [name = "a1" ];
+
+ a -> c [name = "a2" ];
+
+ a -> d [name = "a3" ];
+
+ b -> c [name = "a4" ];
+
+ }

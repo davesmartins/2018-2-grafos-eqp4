@@ -1,0 +1,15 @@
+digraph Grafao {
+a[color=black];
+b[color=blue];
+c[color=red];
+d[color=blue];
+e[color=black];
+ a -> b [label = "5.0", name = "a1" ];
+
+ a -> c [label = "6.0", name = "a2" ];
+
+ a -> d [label = "3.0", name = "a3" ];
+
+ b -> c [label = "4.0", name = "a4" ];
+
+ }

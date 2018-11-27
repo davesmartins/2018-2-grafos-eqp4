@@ -1,0 +1,14 @@
+digraph dssf {
+a[color=black];
+b[color=blue];
+c[color=black];
+d[color=blue];
+ a -> b [name = "1" ];
+
+ b -> c [name = "2" ];
+
+ c -> d [name = "3" ];
+
+ d -> a [name = "4" ];
+
+ }

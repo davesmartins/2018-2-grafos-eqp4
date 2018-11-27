@@ -1,0 +1,14 @@
+digraph XCBZCXBC {
+A[color=black];
+B[color=blue];
+C[color=yellow];
+D[color=yellow];
+ A -> B [name = "1" ];
+
+ A -> C [name = "2" ];
+
+ A -> D [name = "3" ];
+
+ B -> C [name = "4" ];
+
+ }

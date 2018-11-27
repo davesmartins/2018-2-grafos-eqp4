@@ -16,14 +16,17 @@ public class Vertice {
     private String nome;
     private double valor;
     ArrayList<Aresta> ligacoes;
+    private int cor;
 
     public Vertice(String nome) {
         this.nome = nome;
         this.ligacoes = new ArrayList<Aresta>();
+        this.cor = 0;
     }
     
     public Vertice() {
         this.nome = "";
+        this.cor = 0;
                
     }
     
@@ -54,7 +57,13 @@ public class Vertice {
     public void setValor(float valor) {
         this.valor = valor;
     }
-    
-    
+
+    public int getCor() {
+        return cor;
+    }
+
+    public void setCor(int Cor) {
+        this.cor = Cor;
+    }    
 
 }

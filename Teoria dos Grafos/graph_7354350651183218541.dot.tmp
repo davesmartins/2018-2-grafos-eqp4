@@ -1,0 +1,11 @@
+digraph grafo {
+a[color=black];
+b[color=black];
+c[color=black];
+ a -> b [name = "1" ];
+
+ a -> c [name = "2" ];
+
+ b -> c [name = "3" ];
+
+ }

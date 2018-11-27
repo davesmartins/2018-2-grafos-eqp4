@@ -1,0 +1,14 @@
+digraph dfgdfg {
+a[color=black];
+b[color=blue];
+c[color=black];
+d[color=blue];
+ a -> b [name = "1" ];
+
+ a -> c [name = "2" ];
+
+ a -> d [name = "3" ];
+
+ b -> c [name = "4" ];
+
+ }

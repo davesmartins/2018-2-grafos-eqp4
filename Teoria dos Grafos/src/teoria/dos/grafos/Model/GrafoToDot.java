@@ -8,6 +8,7 @@ package teoria.dos.grafos.Model;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -75,14 +76,29 @@ public class GrafoToDot {
         String dotGraph = "", aux = "";
         double valor = 0;
         boolean direct = false;
-
+        
+        HashMap<Integer, String> cores = new HashMap<>();
+        
+        cores.put(0, "black");
+        cores.put(1, "blue");
+        cores.put(2, "red");
+        cores.put(3, "yellow");
+        cores.put(4, "green");
+        cores.put(5, "brow");
+        cores.put(6, "purple");
+        cores.put(7, "orange");
+        
+        
         for (Vertice vertice : grafo.getVertices()) {
-            dotGraph += "" + vertice.getNome() + ";\n";
+            String cor = cores.get(vertice.getCor());
+            dotGraph += "" + vertice.getNome() + "[color=" + cor + "];\n";
         }
         for (Vertice vertice : grafo.getVertices()) {
             if (vertice.ligacoes.size() > 0) {
                 for (Aresta aresta : vertice.ligacoes) {
                     valor = aresta.getValor();
+                    
+                    
                     if (valor != 0) {
                         aux = " [label = \"" + valor + "\", name = \"" + aresta.getNome() + "\" ];";
 
@@ -109,5 +125,6 @@ public class GrafoToDot {
         }
         return dotGraph;
     }
+
 
 }

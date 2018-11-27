@@ -82,6 +82,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        ChkColor = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addFocusListener(new java.awt.event.FocusAdapter() {
@@ -185,6 +186,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        ChkColor.setText("Colorir vértices");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -202,14 +205,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             .addComponent(btnCriarGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(chkGrau, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chkOrdem, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(chkGrau, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(chkOrdem, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(ChkColor))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
@@ -239,9 +244,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, Short.MAX_VALUE)
+                        .addComponent(ChkColor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkGrau)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkOrdem))
@@ -455,23 +462,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public void salvarGrafo() throws FileNotFoundException {
         String dotGraph = "";
-
-        if (nomeArquivo.equals("")) {
-            dotGraph = GrafoToDot.exportaGrafoDot(grafo).toString();
-            JFileChooser chooser = new JFileChooser();
-            int retrival = chooser.showSaveDialog(null);
-            if (retrival == JFileChooser.APPROVE_OPTION) {
-                //FileOutputStream arquivo = new FileOutputStream(chooser.getSelectedFile() + ".dot");
-                nomeArquivo = chooser.getSelectedFile().toString();
-                if (nomeArquivo.contains(".dot")) {
-                    nomeArquivo = nomeArquivo.replace(".dot", "");
-                }
-                //File arquivo = new File(chooser.getSelectedFile() + ".dot");
-                try (PrintWriter arquivo = new PrintWriter(nomeArquivo + ".dot")) {
-                    arquivo.println(dotGraph);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        grafo.coloreGrafo();
+        dotGraph = GrafoToDot.exportaGrafoDot(grafo).toString();
+        JFileChooser chooser = new JFileChooser();
+        int retrival = chooser.showSaveDialog(null);
+        if (retrival == JFileChooser.APPROVE_OPTION) {
+            //FileOutputStream arquivo = new FileOutputStream(chooser.getSelectedFile() + ".dot");
+            nomeArquivo = chooser.getSelectedFile().toString();
+            if (nomeArquivo.contains(".dot")) {
+                nomeArquivo = nomeArquivo.replace(".dot", "");
+            }
+            //File arquivo = new File(chooser.getSelectedFile() + ".dot");
+            try (PrintWriter arquivo = new PrintWriter(nomeArquivo + ".dot")) {
+                arquivo.println(dotGraph);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         File out = new File(nomeArquivo + " - imagem.png");
@@ -634,6 +639,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox ChkColor;
     private javax.swing.JButton btnCriarGrafo;
     private javax.swing.JButton btnVerGrafo;
     private javax.swing.JCheckBox chkGrau;

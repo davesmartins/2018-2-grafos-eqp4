@@ -1,0 +1,14 @@
+digraph grafo {
+a[color=black];
+b[color=black];
+c[color=blue];
+d[color=blue];
+ a -> b [label = "10.0", name = "a1" ];
+
+ a -> c [label = "15.0", name = "a2" ];
+
+ a -> d [label = "14.0", name = "a3" ];
+
+ b -> c [label = "5.0", name = "a4" ];
+
+ }

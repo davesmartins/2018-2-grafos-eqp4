@@ -1,0 +1,14 @@
+digraph asdfreew {
+a[color=red];
+b[color=black];
+c[color=black];
+d[color=black];
+ a -> b [name = "1" ];
+
+ a -> c [name = "2" ];
+
+ a -> d [name = "3" ];
+
+ a -> c [name = "4" ];
+
+ }

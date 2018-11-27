@@ -1,0 +1,11 @@
+digraph dsfa {
+a[color=black];
+b[color=blue];
+c[color=red];
+ a -> b [name = "1" ];
+
+ a -> c [name = "2" ];
+
+ b -> c [name = "3" ];
+
+ }

@@ -75,16 +75,19 @@
                                   <Component id="btnCriarGrafo" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jButton7" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="chkGrau" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkOrdem" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="chkGrau" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="chkOrdem" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="ChkColor" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jButton7" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="485" max="-2" attributes="0"/>
@@ -121,9 +124,11 @@
                               <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="27" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace pref="5" max="32767" attributes="0"/>
+                              <Component id="ChkColor" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="chkGrau" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="chkOrdem" min="-2" max="-2" attributes="0"/>
@@ -263,6 +268,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton10ActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="ChkColor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Colorir v&#xe9;rtices"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
