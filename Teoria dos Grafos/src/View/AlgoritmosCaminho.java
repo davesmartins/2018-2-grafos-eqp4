@@ -5,9 +5,19 @@
  */
 package View;
 
+import edu.ifet.grafos.graphview.GraphView;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import teoria.dos.grafos.Model.Dijkstra;
 import teoria.dos.grafos.Model.Grafo;
+import teoria.dos.grafos.Model.GrafoToDot;
+import teoria.dos.grafos.Model.Prim;
 
 /**
  *
@@ -18,13 +28,14 @@ public class AlgoritmosCaminho extends javax.swing.JFrame {
     private String[] vertices;
     private String[] orientacoes = {"Orientada", "Não Orientada"};
     private Dijkstra dijkstra;
-
+    Grafo grafo = new Grafo();
     /**
      * Creates new form AlgoritmosCaminho
      */
     public AlgoritmosCaminho() {
         vertices = atualizaArray();
         initComponents();
+        grafo = TelaPrincipal.getGrafo();
     }
 
     private String[] atualizaArray() {
@@ -57,6 +68,8 @@ public class AlgoritmosCaminho extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +144,32 @@ public class AlgoritmosCaminho extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Dijkstra", jPanel1);
 
+        jButton3.setText("Executar Prim");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addContainerGap(298, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addContainerGap(128, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Prim", jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,7 +191,7 @@ public class AlgoritmosCaminho extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Grafo grafo = TelaPrincipal.getGrafo();
+        
         this.dijkstra = new Dijkstra(grafo);
 
         String vertice = this.lblVerticeOrigem.getSelectedItem().toString();
@@ -174,6 +213,52 @@ public class AlgoritmosCaminho extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Prim prim = new Prim();
+        
+        Grafo grafoReduzido = new Grafo();
+        grafoReduzido = prim.getPrim(grafo);
+        
+        String g = GrafoToDot.exportaGrafoDot(grafoReduzido);
+
+        // Criando um objeto da classe responsável por gerar a imagem do grafo
+        GraphView gv = new GraphView();
+        //Lendo a String 
+        gv.readString(g);
+        //Imprimindo a grafo em texto
+        System.out.println(gv.getDotSource());
+        //Gerando uma imagem com o nome out.png 
+        File out = new File("prim.png");
+        gv.writeGraphToFile(out);
+
+        //janela do programa    
+        JFrame frame = new JFrame("Resultado algoritmo de Prim");
+        //container onde serão adicionados todos componentes
+        Container container = frame.getContentPane();
+
+        //carrega a imagem passando o nome da mesma
+        ImageIcon img = new ImageIcon("prim.png");
+
+        //pega a altura e largura
+        int altura = img.getIconHeight();
+        int largura = img.getIconWidth();
+
+        //adiciona a imagem em um label
+        JLabel label = new JLabel(img);
+        //adiciona a altura e largura em outro label
+        JLabel label2 = new JLabel("Altura: " + altura + "       Largura: " + largura);
+
+        //cria o JPanel para adicionar os labels
+        JPanel panel = new JPanel();
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(label2, BorderLayout.SOUTH);
+
+        //adiciona o panel no container
+        container.add(panel, BorderLayout.CENTER);
+        frame.pack();
+        frame.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,10 +298,12 @@ public class AlgoritmosCaminho extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JComboBox<String> lblVerticeDestino;
     private javax.swing.JComboBox<String> lblVerticeOrigem;

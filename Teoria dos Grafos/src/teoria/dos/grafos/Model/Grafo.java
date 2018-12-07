@@ -30,6 +30,12 @@ public class Grafo {
         this.vertices = vertices;
         this.arestas = arestas;
     }
+    
+    public Grafo(String nome, ArrayList<Vertice> vertices, ArrayList<Aresta> arestas) {
+        this.nome = nome;
+        this.vertices = vertices;
+        this.arestas = arestas;
+    }
 
     public boolean isDirecionado() {
         return direcionado;
@@ -291,5 +297,36 @@ public class Grafo {
         }
         return 0;
     }
+    
+      public Boolean isVizinho(Vertice a, Vertice b) {
+        for(Aresta aresta : a.getLigacoes()){
+            if(aresta.getDestino().getNome().equals(b.getNome())){
+                return true;
+            }
+        }
+        for(Aresta aresta : b.getLigacoes()){
+            if(aresta.getDestino().getNome().equals(a.getNome())){
+                return true;
+            }
+        }
+        
+        return false;
+    }
 
+    public ArrayList<Vertice> getVizinhos(Vertice vertice) {
+        ArrayList<Vertice> listaVertices = new ArrayList();
+        ArrayList<Vertice> listaVizinhos = new ArrayList();
+
+        listaVertices = this.vertices;
+
+        for (Vertice v : listaVertices) {
+            if (isVizinho(vertice, v)) {
+                listaVizinhos.add(v);
+            }
+        }
+
+        return listaVizinhos;
+    }
+    
+    
 }
