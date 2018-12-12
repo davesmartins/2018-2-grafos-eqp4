@@ -28,7 +28,7 @@ public class GrafoToDot {
             grafo.setDirecionado(false);
         }
         int i;
-        String aux, aux2;
+        String aux;
         String[] arrayAux;
         String[] arrayGrafo = dotGraph.split("\\{\n");
 
@@ -39,9 +39,6 @@ public class GrafoToDot {
         arrayAux = arrayGrafo[1].split(";\n ")[0].split(";\n");
 
         for (i = 0; i < arrayAux.length; i++) {
-            if (arrayAux[i].contains("@@")) {
-                arrayAux[i].replace(" ", "@@");
-            }
             grafo.adicionaVertice(arrayAux[i]);
         }
 

@@ -1,0 +1,18 @@
+digraph grafao {
+a;
+b;
+c;
+d;
+ a -> b [label = "11.0", name = "1" ];
+
+ a -> c [label = "22.0", name = "2" ];
+
+ a -> c [label = "44.0", name = "4" ];
+
+ a -> d [label = "66.0", name = "6" ];
+
+ b -> c [label = "33.0", name = "3" ];
+
+ c -> d [label = "55.0", name = "5" ];
+
+ }

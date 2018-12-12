@@ -1,0 +1,15 @@
+digraph Grafinho {
+a;
+b;
+c;
+d;
+e;
+ a -> b [label = "55.0", name = "1" ];
+
+ a -> c [label = "22.0", name = "2" ];
+
+ a -> d [label = "33.0", name = "3" ];
+
+ a -> e [label = "44.0", name = "4" ];
+
+ }

@@ -455,22 +455,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void salvarGrafo() throws FileNotFoundException {
         String dotGraph = "";
 
-        if (nomeArquivo.equals("")) {
-            dotGraph = GrafoToDot.exportaGrafoDot(grafo).toString();
-            JFileChooser chooser = new JFileChooser();
-            int retrival = chooser.showSaveDialog(null);
-            if (retrival == JFileChooser.APPROVE_OPTION) {
-                //FileOutputStream arquivo = new FileOutputStream(chooser.getSelectedFile() + ".dot");
-                nomeArquivo = chooser.getSelectedFile().toString();
-                if (nomeArquivo.contains(".dot")) {
-                    nomeArquivo = nomeArquivo.replace(".dot", "");
-                }
-                //File arquivo = new File(chooser.getSelectedFile() + ".dot");
-                try (PrintWriter arquivo = new PrintWriter(nomeArquivo + ".dot")) {
-                    arquivo.println(dotGraph);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        dotGraph = GrafoToDot.exportaGrafoDot(grafo).toString();
+        JFileChooser chooser = new JFileChooser();
+        int retrival = chooser.showSaveDialog(null);
+        if (retrival == JFileChooser.APPROVE_OPTION) {
+            //FileOutputStream arquivo = new FileOutputStream(chooser.getSelectedFile() + ".dot");
+            nomeArquivo = chooser.getSelectedFile().toString();
+            if (nomeArquivo.contains(".dot")) {
+                nomeArquivo = nomeArquivo.replace(".dot", "");
+            }
+            //File arquivo = new File(chooser.getSelectedFile() + ".dot");
+            try (PrintWriter arquivo = new PrintWriter(nomeArquivo + ".dot")) {
+                arquivo.println(dotGraph);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         File out = new File(nomeArquivo + " - imagem.png");
@@ -504,6 +502,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
         frame.pack();
         frame.setVisible(true);
 
+    }
+
+    public void novoMostraGrafo() {
+        String g = GrafoToDot.exportaGrafoDot(grafo);
+
+        // Criando um objeto da classe responsável por gerar a imagem do grafo
+        GraphView gv = new GraphView();
+        //Lendo a String 
+        gv.readString(g);
+        //Imprimindo a grafo em texto
+        System.out.println(gv.getDotSource());
+        //Gerando uma imagem com o nome out.png 
+        File out = new File("prim.png");
+        gv.writeGraphToFile(out);
+
+        //janela do programa    
+        JFrame frame = new JFrame("Resultado algoritmo de Prim");
+        //container onde serão adicionados todos componentes
+        Container container = frame.getContentPane();
+
+        //carrega a imagem passando o nome da mesma
+        ImageIcon img = new ImageIcon("prim.png");
+
+        //adiciona a imagem em um label
+        JLabel label = new JLabel(img);
+
+        //cria o JPanel para adicionar os labels
+        JPanel panel = new JPanel();
+        panel.add(label, BorderLayout.NORTH);
+
+        //adiciona o panel no container
+        container.add(panel, BorderLayout.CENTER);
+        frame.pack();
+        frame.setVisible(true);
     }
 
     public void informaçõesDoGrafo() {

@@ -70,6 +70,7 @@ public class AlgoritmosCaminho extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,21 +152,32 @@ public class AlgoritmosCaminho extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Cancelar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(213, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton3)
-                .addContainerGap(128, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(128, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Prim", jPanel2);
@@ -216,6 +228,7 @@ public class AlgoritmosCaminho extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Prim prim = new Prim();
+        grafo = TelaPrincipal.getGrafo();
         
         Grafo grafoReduzido = new Grafo();
         grafoReduzido = prim.getPrim(grafo);
@@ -260,6 +273,10 @@ public class AlgoritmosCaminho extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -299,6 +316,7 @@ public class AlgoritmosCaminho extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

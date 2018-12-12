@@ -1,0 +1,17 @@
+digraph grafo {
+a;
+b;
+c;
+d;
+e;
+ a -> b [label = "20.0", name = "1" ];
+
+ a -> c [label = "25.0", name = "2" ];
+
+ a -> d [label = "50.0", name = "3" ];
+
+ a -> d [label = "150.0", name = "6" ];
+
+ a -> e [label = "45.0", name = "9" ];
+
+ }

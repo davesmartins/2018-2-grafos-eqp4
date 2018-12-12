@@ -1,0 +1,9 @@
+graph Grafinho {
+a;
+b;
+c;
+ a -- b [label = "15.0", name = "1" ];
+
+ a -- c [label = "17.0", name = "2" ];
+
+ }

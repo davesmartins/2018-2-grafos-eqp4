@@ -1,0 +1,8 @@
+digraph grafafafas {
+a;
+b;
+ a -> b [label = "88.0", name = "1" ];
+
+ a -> c [label = "25.0", name = "2" ];
+
+ }

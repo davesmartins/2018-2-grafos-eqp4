@@ -126,11 +126,10 @@ public class Grafo {
     }
 
     public void adicionaAresta(Aresta aresta) {
-        int i, j;
+        int i;
         arestas.add(aresta);
         i = getIndiceVertice(aresta.getNomeOrigem());
         vertices.get(i).ligacoes.add(aresta);
-
     }
 
     public void removeAresta(Aresta aresta) {
@@ -291,7 +290,7 @@ public class Grafo {
 
     public int getIndiceVertice(String nome) {
         for (int i = 0; i < vertices.size(); i++) {
-            if (vertices.get(i).getNome() == nome) {
+            if (vertices.get(i).getNome().equals(nome)) {
                 return i;
             }
         }

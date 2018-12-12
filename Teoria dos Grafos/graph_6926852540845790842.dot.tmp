@@ -1,0 +1,9 @@
+digraph grafo {
+a;
+b;
+c;
+ a -> b [label = "15.0", name = "1" ];
+
+ a -> c [label = "88.0", name = "2" ];
+
+ }
